@@ -19,11 +19,11 @@ public class EmailGeneratorService {
     @Value("${gemini.api.key}")
     private String geminiApiKey;
 
-    public EmailGeneratorService(WebClient webClient) {
-        this.webClient = webClient;
+    public EmailGeneratorService(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.build();
     }
 
-    public String generateEmail(EmailRequest emailRequest){
+    public String generateEmailReply(EmailRequest emailRequest){
         String prompt=buildPrompt(emailRequest);
         //Craft a request
         Map<String, Object> requestBody = Map.of(
@@ -71,5 +71,5 @@ public class EmailGeneratorService {
         prompt.append("\nOriginal Email Content: \n").append(emailRequest.getEmailContent());
         return prompt.toString() ;
     }
-        //Return response
+    //Return response
 }
